@@ -5,12 +5,12 @@ import java.math.*;
 public class Main {
 
     public static void main(String[] args) {
-        int a[] = new int[5];
         Random random = new Random();
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter N:");
         int n = scanner.nextInt();
+        int a[] = new int[n];
         for (int i = 0; i < a.length; i++) {
             a[i] = (random.nextInt() % 100 + 100) % 100;
             System.out.print(a[i] + " ");

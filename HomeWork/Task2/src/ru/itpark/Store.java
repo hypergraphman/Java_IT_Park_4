@@ -2,9 +2,7 @@ package ru.itpark;
 
 import java.util.Scanner;
 
-/**
- * Created by user on 24.09.2017.
- */
+// класс хранилище
 public class Store {
     private int count;
     private int store[];
@@ -19,14 +17,20 @@ public class Store {
 
     }
 
-    // добавляет элемент в хранилище
-    void Push (int pos, int newNumber) {
+    // добавляет элемент в хранилище,
+    // возвращает 0 если все хорошо, иначе другие значения
+    // возвращает 1 если хранилище переполнено
+    int Push (int pos, int newNumber) {
 
+        return 0;
     }
 
     // удаляет элемент из хранилища
-    void Pop (int pos) {
+    // возвращает 0 если все хорошо, иначе другие значения
+    // возвращает 2 если хранилице не имеет элемента равного позиции pos
+    int Pop (int pos) {
 
+        return 0;
     }
 
     // показыват все элементы хранилища

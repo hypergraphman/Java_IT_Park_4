@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Store {
     private int count;
     private int store[];
-    private final int maxSize = 3;
+    private final int maxSize = 100;
 
     Store () {
         count = 0;
@@ -26,10 +26,17 @@ public class Store {
         // не реализовано, из-за отсутствия необходимости
     }
 
+    //поменять элементы хранилища местами
+    private void swapElementsStore (int indexI, int indexJ) {
+        int temp = store[indexI];
+        store[indexI] = store[indexJ];
+        store[indexJ] = temp;
+    }
+
     // добавляет элемент в хранилище,
     // возвращает 0 если все хорошо, иначе другие значения
     // возвращает 1 если хранилище переполнено
-    int Push (int pos, int newNumber) {
+    int push(int pos, int newNumber) {
         if (count == maxSize) return 1;
         offsetRight(pos, 1);
         store[pos] = newNumber;
@@ -39,7 +46,7 @@ public class Store {
     // удаляет элемент из хранилища
     // возвращает 0 если все хорошо, иначе другие значения
     // возвращает 2 если хранилице не имеет элемента равного позиции pos
-    int Pop (int pos) {
+    int pop(int pos) {
         if (pos >= count) return 2;
         for (int i = pos; i < count - 1; ) {
             store[i] = store[++i];
@@ -49,13 +56,27 @@ public class Store {
     }
 
     // показыват все элементы хранилища
-    int View (Scanner scanner) {
+    // Если хранилище пустое возвращаем значение 3
+    int view (Scanner scanner) {
         if (count == 0) return 3;
         for (int i = 0; i < count; ++i) {
             System.out.print(store[i] + " ");
         }
         System.out.println();
         return 0;
+    }
+
+    // сортировка вставками
+    void insSort() {
+        for (int i = 0; i < count - 1; ++i) {
+            int indexMin = i;
+            for (int j = i + 1; j < count; ++j) {
+                if (store[j] < store[indexMin]) {
+                    indexMin = j;
+                }
+            }
+            swapElementsStore(i, indexMin);
+        }
     }
 
     // возвращает длину хранилища

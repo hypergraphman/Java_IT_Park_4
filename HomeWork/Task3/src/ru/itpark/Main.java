@@ -19,7 +19,7 @@ public class Main {
     }
 
     public static void swap (Integer a, Integer b) {
-        Integer temp = a;
+        Integer temp = new Integer(a);
         a = b;
         b = temp;
     }

@@ -1,9 +1,8 @@
 package ru.itpark;
 
 public class ArrayList {
-    // Размер должен быть степенью двойки
     private final int INITIAL_SIZE = 4;
-    private final int MAX_SIZE = (Integer.MAX_VALUE >> 1) + 1;
+    private final int MAX_SIZE = Integer.MAX_VALUE >> 1;
     // поле - хранилище данных
     private int elements[];
     // количество элементов массива
@@ -13,6 +12,29 @@ public class ArrayList {
         int temp = elements[index1];
         elements[index1] = elements[index2];
         elements[index2] = temp;
+    }
+
+    private boolean increaseInSize() {
+        int newSize = elements.length + (elements.length >> 1);
+        if (newSize <= MAX_SIZE) {
+            int newArray[] = new int[newSize];
+            for (int i = 0; i < count; ++i) {
+                newArray[i] = elements[i];
+            }
+            elements = newArray;
+        } else {
+            // TODO: Надо вызвать исключение, что массив достиг предела
+            // пока реализовал с помощью булеан
+            System.err.println("Нет места");
+            return false;
+        }
+        return true;
+    }
+
+    private void decreaseInSize() {
+        // пока решил не реализовывать, т.к. не было в ДЗ
+        // будет использоваться при удалении элементов в массиве
+        // задача - занимать меньше памяти если список стал меньше
     }
 
     public ArrayList() {
@@ -29,13 +51,7 @@ public class ArrayList {
      * @param element
      */
     public void add(int element) {
-        if (count < elements.length) {
-            elements[count] = element;
-            count++;
-        } else {
-            // TODO: увеличение размера массива
-            System.err.println("Нет места");
-        }
+        insert(count, element);
     }
 
     /**
@@ -43,17 +59,30 @@ public class ArrayList {
      * @param element
      */
     public void addToBegin(int element) {
-
+        insert(0, element);
     }
 
     /**
      * Вставить элемент в заданную позицию со сдвигом
-     * @param element сам элемент
      * @param index индекс, куда надо вставить
+     * @param element сам элемент
      */
-    public void insert(int element, int index) {
-        if (count == elements.length) {
-            int temp[] = new int[elements.length << 1];
+    public void insert(int index, int element) {
+        // сделать лучше тут исключениями в будущем, как тему пройдем
+        // но это не точно
+        if (index >= 0 && index <= count) {
+            boolean isNotFull = true;
+            if (count == elements.length) {
+                isNotFull = increaseInSize();
+            }
+            if (isNotFull) {
+                for (int i = count++; i > index; ) {
+                    elements[i] = elements[--i];
+                }
+                elements[index] = element;
+            }
+        } else {
+            System.err.println("Нет такого элемента");
         }
     }
 
@@ -80,7 +109,7 @@ public class ArrayList {
     public void sort() {
         for (int i = count - 1; i > 0; --i) {
             for (int j = 0; j < i; ++j) {
-                if (elements[j] < elements[j + 1]) {
+                if (elements[j] > elements[j + 1]) {
                     swap(j, j + 1);
                 }
             }
@@ -94,6 +123,8 @@ public class ArrayList {
     }
 
     public void remove(int index) {
+        // TODO: заглушка, нерабочий метод decreaseInSize
+        decreaseInSize();
         if (index >= 0 && index < count) {
             for (int i = index; i < count - 1; ++i) {
                 elements[i] = elements[i + 1];
@@ -117,13 +148,14 @@ public class ArrayList {
     }
 
     public String toString (){
-        String temp = "";
-        for (int element: elements) {
-            temp += element + " ";
-        }
         if (count == 0) {
-            temp = "список пуст";
+            return "список пуст";
         }
-        return temp;
+        String tempString = "[";
+        for (int i = 0; i < count - 1; ++i) {
+            tempString += elements[i] + ", ";
+        }
+        tempString += elements[count - 1] + "]";
+        return tempString;
     }
 }

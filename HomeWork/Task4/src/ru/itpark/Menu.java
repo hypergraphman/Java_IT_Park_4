@@ -27,6 +27,7 @@ public class Menu {
                     viewAllArrayList();
                     break;
                 case 3:
+                    viewAllArrayList();
                     toWorkWithTheList(scanner);
                     break;
                 case 4:
@@ -64,6 +65,10 @@ public class Menu {
     public static void toWorkWithTheList(Scanner scanner) {
         System.out.println("Выберете список для работы:");
         int indexList = scanner.nextInt();
-        MenuForList.startMenuForList(scanner, lists[indexList]);
+        if (lists[indexList] != null) {
+            MenuForList.startMenuForList(scanner, lists[indexList]);
+        } else {
+            System.err.println("Этот список еще не создан");
+        }
     }
 }

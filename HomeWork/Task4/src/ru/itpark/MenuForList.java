@@ -23,17 +23,23 @@ public class MenuForList {
             int commandForList = scanner.nextInt();
             switch (commandForList) {
                 case 1:
+                    System.out.println("Введите элемент:");
+                    list.add(scanner.nextInt());
                     break;
                 case 2:
+                    System.out.println("Введите элемент:");
+                    list.addToBegin(scanner.nextInt());
                     break;
                 case 3:
-
+                    System.out.println("Введите позицию и элемент, через пробел:");
+                    list.insert(scanner.nextInt(), scanner.nextInt());
                     break;
                 case 4:
                     getListElement(scanner, list);
                     break;
                 case 5:
-                    replaceListElement(scanner, list);
+                    System.out.println("Введите позицию и новый элемент через пробел:");
+                    list.replace(scanner.nextInt(), scanner.nextInt());
                     break;
                 case 6:
                     list.sort();
@@ -70,6 +76,8 @@ public class MenuForList {
         }
     }
 
+    // из-за того что можно использовать ввод элементов сразу как аргументы
+    // решил не использовать этот метод, но решил не удалять
     private static void replaceListElement(Scanner scanner, ArrayList list) {
         System.out.println("Введите позицию и новый элемент через пробел:");
         int index = scanner.nextInt();
@@ -82,7 +90,7 @@ public class MenuForList {
         int element = scanner.nextInt();
         int index = list.find(element);
         if (index >= 0) {
-            System.out.println("Ваш " + element + " находится на " + index +
+            System.out.println("Ваш элемент: " + element + " находится на " + index +
                     " позиции.");
         } else {
             System.err.println("Такого элемента нет.");

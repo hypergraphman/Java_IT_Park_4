@@ -9,34 +9,6 @@ public class Menu {
     private static final int INITIAL_SIZE_LISTS = 5;
     private static ArrayList lists[];
 
-    private static void viewAllArrayList(){
-        for (int i = 0; i < INITIAL_SIZE_LISTS; ++i) {
-            if (lists[i] != null) {
-                System.out.println(lists[i].toString());
-            }
-            else {
-                System.out.println(i + " - список пуст.");
-            }
-        }
-    }
-
-    private  static void createList(Scanner scanner) {
-        System.out.println("Введите номер создаваемого списка: [0.." +
-                (INITIAL_SIZE_LISTS - 1)+ "].");
-        int listNumber = scanner.nextInt();
-        if (listNumber >= 0 && listNumber <= INITIAL_SIZE_LISTS) {
-            lists[listNumber] = new ArrayList();
-        } else {
-            System.out.println("Вы не попали в диапазон, список не создан");
-        }
-    }
-
-    public static void toWorkWithTheList(Scanner scanner) {
-        System.out.println("Выберете список для работы:");
-        int indexList = scanner.nextInt();
-        MenuForList.startMenuForList(scanner, lists[indexList]);
-    }
-
     public static int startMenu(Scanner scanner) {
         lists = new ArrayList[INITIAL_SIZE_LISTS];
         // МЕНЮ
@@ -65,5 +37,33 @@ public class Menu {
                     break;
             }
         }
+    }
+
+    private static void viewAllArrayList(){
+        for (int i = 0; i < INITIAL_SIZE_LISTS; ++i) {
+            if (lists[i] != null) {
+                System.out.println(i + " - " + lists[i].toString());
+            }
+            else {
+                System.out.println(i + " - список не создан.");
+            }
+        }
+    }
+
+    private  static void createList(Scanner scanner) {
+        System.out.println("Введите номер создаваемого списка: [0.." +
+                (INITIAL_SIZE_LISTS - 1)+ "].");
+        int listNumber = scanner.nextInt();
+        if (listNumber >= 0 && listNumber <= INITIAL_SIZE_LISTS) {
+            lists[listNumber] = new ArrayList();
+        } else {
+            System.out.println("Вы не попали в диапазон, список не создан");
+        }
+    }
+
+    public static void toWorkWithTheList(Scanner scanner) {
+        System.out.println("Выберете список для работы:");
+        int indexList = scanner.nextInt();
+        MenuForList.startMenuForList(scanner, lists[indexList]);
     }
 }

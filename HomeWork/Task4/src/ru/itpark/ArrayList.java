@@ -2,7 +2,7 @@ package ru.itpark;
 
 public class ArrayList {
     // константа - в коде уже изменить не получится
-    private final int INITIAL_SIZE = 100;
+    private final int INITIAL_SIZE = 10;
     // поле - хранилище данных
     private int elements[];
     // количество элементов массива

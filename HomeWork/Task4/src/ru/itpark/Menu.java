@@ -33,7 +33,7 @@ public class Menu {
                     System.out.println("Пока-пока.");
                     return 0;
                 default:
-                    System.out.println("Такой команды нет, попробуйте заново.");
+                    System.err.println("Такой команды нет, попробуйте заново.");
                     break;
             }
         }

@@ -1,8 +1,9 @@
 package ru.itpark;
 
 public class ArrayList {
-    // константа - в коде уже изменить не получится
-    private final int INITIAL_SIZE = 10;
+    // Размер должен быть степенью двойки
+    private final int INITIAL_SIZE = 4;
+    private final int MAX_SIZE = (Integer.MAX_VALUE >> 1) + 1;
     // поле - хранилище данных
     private int elements[];
     // количество элементов массива
@@ -17,6 +18,10 @@ public class ArrayList {
     public ArrayList() {
         elements = new int[INITIAL_SIZE];
         count = 0;
+    }
+
+    public int getCount() {
+        return count;
     }
 
     /**
@@ -47,7 +52,9 @@ public class ArrayList {
      * @param index индекс, куда надо вставить
      */
     public void insert(int element, int index) {
-
+        if (count == elements.length) {
+            int temp[] = new int[elements.length << 1];
+        }
     }
 
     /**
@@ -56,10 +63,7 @@ public class ArrayList {
      * @return сам элемент по заданному индексу
      */
     public int get(int index) {
-        if(index >= 0 && index < count) {
-            return elements[index];
-        }
-        return -1;
+        return elements[index];
     }
 
     /**

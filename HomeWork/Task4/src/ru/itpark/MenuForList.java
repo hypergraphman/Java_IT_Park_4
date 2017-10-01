@@ -27,14 +27,13 @@ public class MenuForList {
                 case 2:
                     break;
                 case 3:
+
                     break;
                 case 4:
-                    System.out.println("Введите позицию элемента, который Вам нужен:");
-                    int index = scanner.nextInt();
-                    list.get(index);
+                    getListElement(scanner, list);
                     break;
                 case 5:
-                    replace(scanner, list);
+                    replaceListElement(scanner, list);
                     break;
                 case 6:
                     list.sort();
@@ -47,7 +46,7 @@ public class MenuForList {
                     list.remove(scanner.nextInt());
                     break;
                 case 9:
-                    find(scanner, list);
+                    findListElement(scanner, list);
                     break;
                 case 10:
                     System.out.println(list.toString());
@@ -55,20 +54,30 @@ public class MenuForList {
                 case 11:
                     return 0;
                 default:
-                    System.out.println("Такой команды нет, попробуйте заново.");
+                    System.err.println("Такой команды нет, попробуйте заново.");
                     break;
             }
         }
     }
 
-    private static void replace(Scanner scanner, ArrayList list) {
+    private static void getListElement(Scanner scanner, ArrayList list) {
+        System.out.println("Введите позицию элемента, который Вам нужен:");
+        int index = scanner.nextInt();
+        if (index >= 0 && index < list.getCount()) {
+            System.out.println(list.get(index));
+        } else {
+            System.err.println("Такого элемента нет.");
+        }
+    }
+
+    private static void replaceListElement(Scanner scanner, ArrayList list) {
         System.out.println("Введите позицию и новый элемент через пробел:");
         int index = scanner.nextInt();
         int element = scanner.nextInt();
         list.replace(index, element);
     }
 
-    private static void find(Scanner scanner, ArrayList list) {
+    private static void findListElement(Scanner scanner, ArrayList list) {
         System.out.println("Введите элемент, который хотели найти:");
         int element = scanner.nextInt();
         int index = list.find(element);
@@ -76,7 +85,7 @@ public class MenuForList {
             System.out.println("Ваш " + element + " находится на " + index +
                     " позиции.");
         } else {
-            System.out.println("Такого элемента нет.");
+            System.err.println("Такого элемента нет.");
         }
     }
 }

@@ -20,7 +20,7 @@ public class TV {
 
     private void checkRange(){
         if (limitChannels > MAX_CHANNELS) {
-            throw new ArrayIndexOutOfBoundsException("Список канало слишком велик");
+            throw new ArrayIndexOutOfBoundsException("Список каналов слишком большой");
         }
     }
 
@@ -48,6 +48,12 @@ public class TV {
     }
 
     public void showChannel (int channelIndex) {
-        System.out.println(channels[channelIndex].show());
+        if (channelIndex >= 0 && channelIndex < count) {
+            System.out.println(channels[channelIndex].showTelecast());
+        } else if (channelIndex >= count && channelIndex < MAX_CHANNELS) {
+            System.out.println("Канал не задан");
+        } else {
+            System.out.println("Такого канала не может быть");
+        }
     }
 }

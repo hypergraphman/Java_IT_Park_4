@@ -1,53 +1,66 @@
 package ru.itpark;
 
+import java.time.LocalTime;
+
 public class Channel {
     private Telecast[] telecasts;
     private int count;
-    private final int MAX_CHANNELS = 10;
-    private int limitChannels = 2;
+    private final int MAX_TELECAST = 10;
+    private int limitTelecasts = 2;
 
     public Channel (Telecast[] telecasts) {
         this.telecasts = telecasts;
         count = telecasts.length;
-        limitChannels = count;
+        limitTelecasts = count;
         checkRange();
     }
 
     public Channel () {
         count = 0;
-        telecasts = new Telecast[limitChannels];
+        telecasts = new Telecast[limitTelecasts];
     }
 
     private void checkRange(){
-        if (limitChannels > MAX_CHANNELS) {
-            throw new ArrayIndexOutOfBoundsException("Список канало слишком велик");
+        if (limitTelecasts > MAX_TELECAST) {
+            throw new ArrayIndexOutOfBoundsException("Список телепередач слишком большой");
         }
     }
 
     private void checkCount() {
-        if (count == limitChannels) {
-            limitChannels += limitChannels >> 1;
+        if (count == limitTelecasts) {
+            limitTelecasts += limitTelecasts >> 1;
             checkRange();
-            Telecast tempChannels[] = new Telecast[limitChannels];
+            Telecast tempTelecasts[] = new Telecast[limitTelecasts];
             for (int i = 0; i < telecasts.length; ) {
-                tempChannels[i] = telecasts[i++];
+                tempTelecasts[i] = telecasts[i++];
             }
-            telecasts = tempChannels;
+            telecasts = tempTelecasts;
         }
     }
 
-    public void addChannel (Telecast channel) {
+    public void addTelecast(Telecast telecast) {
         checkCount();
-        telecasts[count++] = channel;
+        // канал должен при добавлении контролировать время передач
+        // TODO: надо реализовать
+        telecasts[count++] = telecast;
     }
 
-    public void deleteChannel (int channelIndex) {
-        for (int i = count--; i > channelIndex; ) {
+    public void deleteTelecast(int telecastIndex) {
+        for (int i = count--; i > telecastIndex; ) {
             telecasts[--i] = telecasts[i + 1];
         }
     }
 
-    public void showChannel (int channelIndex) {
-        System.out.println(telecasts[channelIndex].show());
+    public String showTelecast () {
+        LocalTime currentTime = LocalTime.now();
+        if (count != 0) {
+            for (Telecast telecast : telecasts) {
+                if (currentTime.isAfter(telecast.getBeginTime()) &&
+                        currentTime.isBefore(telecast.getEndTime())) {
+                    return "сейчас идет " + telecast.getName();
+                }
+            }
+        }
+        return "Профилактика, клевое изображение с разными цветами";
     }
 }

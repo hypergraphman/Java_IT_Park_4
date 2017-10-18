@@ -6,6 +6,23 @@ public class TV {
     private final int MAX_CHANNELS = 10;
     private int limitChannels = 2;
 
+    // пробуем реализовать Singleton
+    private  static TV instance;
+
+    private TV() {
+        count = 0;
+        channels = new Channel[limitChannels];
+    }
+
+    static  {
+        instance = new TV();
+    }
+
+    public static TV getInstance() {
+        return instance;
+    }
+
+    /*
     public TV (Channel[] channels) {
         this.channels = channels;
         count = channels.length;
@@ -17,7 +34,7 @@ public class TV {
         count = 0;
         channels = new Channel[limitChannels];
     }
-
+    */
     private void checkRange(){
         if (limitChannels > MAX_CHANNELS) {
             throw new ArrayIndexOutOfBoundsException("Список каналов слишком большой");
@@ -45,6 +62,14 @@ public class TV {
         for (int i = count--; i > channelIndex; ) {
             channels[--i] = channels[i + 1];
         }
+    }
+
+    public void setChannels(Channel[] channels) {
+        limitChannels = channels.length;
+        // тут ставиться try catch, а в finally записывается исходны limitChannels
+        checkRange();
+        this.channels = channels;
+        count = channels.length;
     }
 
     public void showChannel (int channelIndex) {

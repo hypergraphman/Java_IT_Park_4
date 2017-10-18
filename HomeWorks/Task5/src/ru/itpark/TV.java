@@ -1,6 +1,6 @@
 package ru.itpark;
 
-public class TV {
+public class TV implements showChannel {
     private Channel channels[];
     private int count;
     private final int MAX_CHANNELS = 10;
@@ -72,7 +72,7 @@ public class TV {
         count = channels.length;
     }
 
-    public void showChannel (int channelIndex) {
+    public void show (int channelIndex) {
         if (channelIndex >= 0 && channelIndex < count) {
             System.out.println(channels[channelIndex].showTelecast());
         } else if (channelIndex >= count && channelIndex < MAX_CHANNELS) {

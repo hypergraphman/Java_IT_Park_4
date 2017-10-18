@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class remoteControl {
     public static void startTV (Scanner scanner) {
-        TV tv = TV.getInstance();
+        showChannel tv = TV.getInstance();
         while (true) {
             System.out.println("Нажми на кнопку, получишь результат");
             System.out.println("-1. Выход");
@@ -15,7 +15,7 @@ public class remoteControl {
                     System.exit(0);
                     break;
                 default:
-                    tv.showChannel(cmd);
+                    tv.show(cmd);
             }
         }
     }

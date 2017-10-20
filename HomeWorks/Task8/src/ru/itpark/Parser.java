@@ -11,7 +11,7 @@ public class Parser {
         char chars[] = text.toCharArray();
         int letterFirst = 0;
         for (int i = 0; i < chars.length; i++) {
-            // notifyAll(chars[i]);
+            notifyAll(chars[i]);
             // логика сборки очередного слова
             if (chars[i] == ' ') {
                 if (i > letterFirst) {
@@ -79,13 +79,20 @@ public class Parser {
     }
 
     public void notifyAll(char c) {
-        for (int i = 0; i < parserObservers.length; i++) {
-            parserObservers[i].handleParserModule(c);
+        for (int i = 0; i < count; i++) {
+            parserObservers[i].handleChar(c);
         }
     }
 
     public void addObserver(ParserObserver observer) {
         parserObservers[count++] = observer;
+    }
+
+    public void results() {
+        for (int i = 0; i < count; i++) {
+            Counter temp = (Counter) parserObservers[i];
+            temp.PrintCount();
+        }
     }
     /*
     public void parseString (SpecialModule specialModule) {

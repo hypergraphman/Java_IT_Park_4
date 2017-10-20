@@ -1,5 +1,5 @@
 package ru.itpark;
 
 public interface ParserObserver {
-    public void handleParserModule(char c);
+    public void handleChar(char c);
 }

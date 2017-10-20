@@ -8,7 +8,14 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String line = scanner.nextLine();
         Parser p = new Parser();
+        ParserObserver countDigitsHandler = new CountDigitsHandler();
+        ParserObserver countLettersHandler = new CountLettersHandler();
+        ParserObserver countSpacesHandler = new CountSpacesHandler();
+        p.addObserver(countDigitsHandler);
+        p.addObserver(countLettersHandler);
+        p.addObserver(countSpacesHandler);
+
         String words[] = p.parse(line);
-        int k = 0;
+        p.results();
     }
 }

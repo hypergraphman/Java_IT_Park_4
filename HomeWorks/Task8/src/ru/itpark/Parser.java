@@ -10,32 +10,70 @@ public class Parser {
         ArrayList<String> words = new ArrayList<>();
         char chars[] = text.toCharArray();
         int letterFirst = 0;
-        int letterLast = 0;
-        boolean isStartWord = true;
         for (int i = 0; i < chars.length; i++) {
             // notifyAll(chars[i]);
             // логика сборки очередного слова
-            if (chars[i] != ' ' && isStartWord) {
-                isStartWord = false;
+            if (chars[i] == ' ') {
+                if (i > letterFirst) {
+                    char temp[] = new char[i - letterFirst];
+                    for(int j = letterFirst, k = 0; j < i; j++, k++) {
+                        temp[k] = chars[j];
+                    }
+                    words.add(new String(temp));
+                }
+                letterFirst = i + 1;
+            }
+        }
+
+        if (letterFirst < chars.length) {
+            char temp[] = new char[chars.length - letterFirst];
+            for(int j = letterFirst, k = 0; j < chars.length; j++, k++) {
+                temp[k] = chars[j];
+            }
+            words.add(new String(temp));
+
+        }
+
+        /* авторский метод разбивки слов по пробелам
+        он мне больше понравился =) Но условия сложноваты
+        int letterFirst = 0;
+        int letterLast = 0;
+        boolean isNotStartWord = true;
+        for (int i = 0; i < chars.length; i++) {
+            // notifyAll(chars[i]);
+            // логика сборки очередного слова
+            // Если не пробел и слово не начало формироваться
+            if (chars[i] != ' ' && isNotStartWord) {
+                // говорим, что слово начало формироваться и запоминаем индекс первой буквы
+                isNotStartWord = false;
                 letterFirst = i;
-            } else if (chars[i] == ' ' && !isStartWord) {
-                isStartWord = true;
+            } else if (chars[i] == ' ' && !isNotStartWord) {
+                // иначе, если пробел и слово уже формируется, то
+                // говорим, что слово закончилось и начинает формироваться заново и
+                // запоминаем индекс последнего символа перед пробелом.
+                isNotStartWord = true;
                 letterLast = i - 1;
-            } else if (i == chars.length - 1 && !isStartWord) {
-                isStartWord = true;
+            } else if (i == chars.length - 1 && !isNotStartWord) {
+                // иначе, если строка закончилась и слово формируется,
+                // то запоминаем последний индекс строки.
+                isNotStartWord = true;
                 letterLast = i;
             }
 
-            if (isStartWord && letterLast - letterFirst > 0) {
+            // если слово сформированно и оно имеет длину, то
+            // добавляем его в наш массив слов
+            if (isNotStartWord && letterLast - letterFirst > 0) {
                 char temp[] = new char[letterLast - letterFirst + 1];
                 for(int j = letterFirst, k = 0; j <= letterLast; j++, k++) {
                     temp[k] = chars[j];
                 }
                 words.add(new String(temp));
+                letterFirst = letterLast = 0;
             }
 
 
         }
+        */
 
         return words.toArray(new String[words.size()]);
     }

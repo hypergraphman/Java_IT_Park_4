@@ -3,8 +3,31 @@ package ru.itpark;
 import java.util.ArrayList;
 
 public class Parser {
-    private ParserObserver parserObservers[] = new ParserObserver[10];
-    private  int count = 0;
+    private ParserObserver parserObservers[];
+    private  int count;
+
+    private Parser(Builder builder) {
+        this.parserObservers = builder.parserObserver;
+        this.count = builder.count;
+    }
+
+    public static class Builder {
+        private ParserObserver parserObserver[] = new ParserObserver[10];
+        private int count = 0;
+
+        public Parser build() {
+            return new Parser(this);
+        }
+
+        public Builder add(ParserObserver parserObserver) {
+            this.parserObserver[count++] = parserObserver;
+            return this;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 
     public String[] parse(String text) {
         ArrayList<String> words = new ArrayList<>();
@@ -84,9 +107,10 @@ public class Parser {
         }
     }
 
+    /* стало не нужно
     public void addObserver(ParserObserver observer) {
         parserObservers[count++] = observer;
-    }
+    }*/
 
     public void results() {
         for (int i = 0; i < count; i++) {
@@ -102,3 +126,4 @@ public class Parser {
     }
     */
 }
+
